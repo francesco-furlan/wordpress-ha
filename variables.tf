@@ -1,6 +1,6 @@
 variable "project" {
   description = "The project name"
-  default     = "wordpress-ha"
+  default     = "wp-ha"
 }
 
 variable "env" {
@@ -28,4 +28,19 @@ variable "vpc_private_subnets" {
   description = "List of CIDR blocks for private subnets"
   type        = list(string)
   default     = ["10.200.0.0/20", "10.200.16.0/20", "10.200.32.0/20"]
+}
+
+variable "db_name" {
+  description = "Database name"
+  default     = "wordpress"
+}
+
+variable "db_username" {
+  description = "Database username"
+  default     = "admin"
+}
+
+variable "db_password" {
+  description = "Database password"
+  default     = "Test_1234"
 }
