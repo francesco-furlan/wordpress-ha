@@ -1,6 +1,6 @@
 resource "aws_db_instance" "main" {
-  name                   = "wp"
-  identifier             = "wp"
+  name                   = var.db_name
+  identifier             = "${var.project}-rds-${var.env}"
   allocated_storage      = "50"
   storage_type           = "gp2"
   engine                 = "mysql"
