@@ -46,3 +46,13 @@ In order to expose Wordpress to the world we will use an AWS ELB.
 In particular we will setup an Application Load Balancer.
 The ALB allow us to work in the L7 of the ISO/OSI model, in our case in HTTP/HTTPS.
 At the moment, the ALB will listen to the port 80 (HTTP) and forward the traffic to a random Wordpress EC2 instance.
+
+## Configure and deploy
+First of all check the [variables](variables.tf) and change them as you want.
+You should create an S3 bucket on your AWS account and specify it in the [main.terraform.backend](main.tf).
+
+You can use the following commands:
+- `make init`: initialize terraform;
+- `make plan`: checks the terraform manifests and executes the terraform plan;
+- `make apply`: deploys the infrastructure to AWS;
+- `make destroy`: destroys the infrastructure on AWS.
