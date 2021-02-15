@@ -6,18 +6,6 @@ resource "aws_key_pair" "bastion" {
   }
 }
 
-data "template_file" "wordpress_setup" {
-  template = file("scripts/wordpress_setup.sh")
-
-  vars = {
-    DB_PORT     = aws_db_instance.main.port
-    DB_HOST     = aws_db_instance.main.address
-    DB_USER     = var.db_username
-    DB_PASSWORD = var.db_password
-    DB_NAME     = var.db_name
-  }
-}
-
 resource "aws_instance" "bastion" {
   ami                         = "ami-00aa4671cbf840d82"
   associate_public_ip_address = true

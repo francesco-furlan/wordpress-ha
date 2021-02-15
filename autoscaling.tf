@@ -6,6 +6,18 @@ resource "aws_key_pair" "wp" {
   }
 }
 
+data "template_file" "wordpress_setup" {
+  template = file("scripts/wordpress_setup.sh")
+
+  vars = {
+    DB_PORT     = aws_db_instance.main.port
+    DB_HOST     = aws_db_instance.main.address
+    DB_USER     = var.db_username
+    DB_PASSWORD = var.db_password
+    DB_NAME     = var.db_name
+  }
+}
+
 resource "aws_launch_configuration" "main" {
   name_prefix     = "wp"
   image_id        = "ami-00aa4671cbf840d82"
