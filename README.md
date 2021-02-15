@@ -28,3 +28,21 @@ This will allow us to access the private subnet components from the internet.
 We need to generate a new ssh key-pair for our bastion with `ssh-keygen -f bastion_key` command.
 
 Keep in mind that in order to be more secure, we could create a security policy that whitelist our IP.
+
+### RDS
+Wordpress needs a MySQL database to work.
+We will create the instance using AWS RDS. An AWS managed service that provides relational databases.
+This will simplify the database setup and manageability.
+
+### Wordpress instances
+Since we need to scale horizontally, we will use an AWS Autoscaling Group.
+We will define the Launch Configuration that will provision an EC2 with Wordpress installed and connected to the database.
+To install and configure Wordpress there's the [userdata script](scripts/wordpress_setup.sh) which requires the database variables. The script will be used as a template file by Terraform, that will set all the database variables up.
+Also in this case in order to access each EC2 instance we will use a new SSH key-pair.
+We can generate it with the `ssh-keygen -f wp_key` command.
+
+### Load Balancer
+In order to expose Wordpress to the world we will use an AWS ELB.
+In particular we will setup an Application Load Balancer.
+The ALB allow us to work in the L7 of the ISO/OSI model, in our case in HTTP/HTTPS.
+At the moment, the ALB will listen to the port 80 (HTTP) and forward the traffic to a random Wordpress EC2 instance.
