@@ -54,7 +54,8 @@ module "alb" {
         timeout             = 5
         protocol            = "HTTP"
         port                = 80
-        matcher             = "200-304"
+        path                = "/health.html"
+        matcher             = "200-299"
       }
     }
   ]
